@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { CardWrapper } from "../../ui/Cards/CardWrapper";
 import {
   BusinessEntity,
   Organization,
   OrganizationPatch,
-  OrgTypes,
 } from "../../stores/organizationStore/types";
 import s from "./CompanyDetails.module.scss";
 import { CompanyDetailsEdit } from "./CompanyDetailsEdit";
+import { convertType, getDateStringFromISO } from "./utils";
+import { CardWrapperWithEdit } from "../../ui/Cards/CardWrapperWithEdit/CardWrapperWithEdit";
 
 interface Props {
   organization: Organization;
@@ -16,29 +16,27 @@ interface Props {
 
 export const CompanyDetails = ({ organization, saveOrganization }: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-
-  const dateObj = new Date(organization.contract.issue_date);
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const year = dateObj.getFullYear();
+  const formattedDate = getDateStringFromISO(organization.contract.issue_date);
 
   const [agreementNumber, setAgreementNumber] = useState<string>(organization.contract.no);
   const onChangeAgreementNumber = (value: string) => setAgreementNumber(value);
 
-  const [date, setDate] = useState<string>(`${month}.${day}.${year}`);
+  const [date, setDate] = useState<string>(formattedDate);
   const onChangeDate = (value: string) => setDate(value);
 
   const [businessEntity, setBusinessEntity] = useState<string>(organization.businessEntity);
   const onChangeBusinessEntity = (value: string) => setBusinessEntity(value);
 
-  const [companyType, setCompanyType] = useState<string[]>(organization.type);
+  const [companyType, setCompanyType] = useState<string[]>(
+    convertType.toDisplay(organization.type),
+  );
   const onChangeCompanyType = (value: string[]) => setCompanyType(value);
 
   const clearStates = () => {
     setAgreementNumber(organization.contract.no);
-    setDate(`${month}.${day}.${year}`);
+    setDate(formattedDate);
     setBusinessEntity(organization.businessEntity);
-    setCompanyType(organization.type);
+    setCompanyType(convertType.toDisplay(organization.type));
   };
 
   const handleEdit = () => setIsEdit(true);
@@ -46,7 +44,7 @@ export const CompanyDetails = ({ organization, saveOrganization }: Props) => {
     const org: OrganizationPatch = {
       contract: { no: agreementNumber, issue_date: new Date(date).toISOString() },
       businessEntity: businessEntity as BusinessEntity,
-      type: companyType as OrgTypes[],
+      type: convertType.fromDisplay(companyType),
     };
     await saveOrganization(organization.id, org);
     setIsEdit(false);
@@ -56,8 +54,10 @@ export const CompanyDetails = ({ organization, saveOrganization }: Props) => {
     clearStates();
   };
 
+  const displayType = convertType.toDisplay(organization.type).join(", ");
+
   return (
-    <CardWrapper
+    <CardWrapperWithEdit
       title="Company Details"
       isEdit={isEdit}
       handleEdit={handleEdit}
@@ -76,7 +76,7 @@ export const CompanyDetails = ({ organization, saveOrganization }: Props) => {
           <div className={s.field}>
             <span className={s.key}>Agreement:</span>
             <span className={s.value}>
-              {organization.contract.no} / {`${month}.${day}.${year}`}
+              {organization.contract.no} / {formattedDate}
             </span>
           </div>
           <div className={s.field}>
@@ -85,10 +85,10 @@ export const CompanyDetails = ({ organization, saveOrganization }: Props) => {
           </div>
           <div className={s.field}>
             <span className={s.key}>Company type:</span>
-            <span className={s.value}>{organization.type}</span>
+            <span className={s.value}>{displayType}</span>
           </div>
         </div>
       )}
-    </CardWrapper>
+    </CardWrapperWithEdit>
   );
 };

@@ -5,6 +5,11 @@
   border-radius: 50%;
   cursor: pointer;
 
+  & svg {
+    width: 20px;
+    height: 20px;
+  }
+
   &:hover {
     background-color: rgba($primary, 0.05);
   }

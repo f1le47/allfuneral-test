@@ -1,0 +1,33 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+
+  &.edit {
+    row-gap: 12px;
+  }
+
+  .field {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+
+    .key {
+      padding: 6px 0;
+      min-width: 160px;
+      font-family: "Poppins";
+      font-size: 13px;
+      line-height: 20px;
+      color: rgba($black, 0.5);
+      white-space: nowrap;
+    }
+
+    .value {
+      font-family: "Poppins";
+      font-size: 14px;
+      line-height: 24px;
+      width: 100%;
+      color: rgba($black, 0.8);
+    }
+  }
+}

@@ -7,7 +7,7 @@ interface Props
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  children: string;
+  children?: string;
   variant?: ButtonVariants;
   size?: ButtonSizes;
   icon?: ReactElement;
@@ -18,12 +18,13 @@ export const Button = ({
   variant = ButtonVariants.Filled,
   size = ButtonSizes.Default,
   icon,
+  className,
   ...rest
 }: Props) => {
   return (
-    <button className={`${s.button} ${s[variant]} ${s[size]}`} {...rest}>
+    <button className={`${s.button} ${s[variant]} ${s[size]} ${className ?? ""}`} {...rest}>
       {icon}
-      <span>{children}</span>
+      {children && <span>{children}</span>}
     </button>
   );
 };

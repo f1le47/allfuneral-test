@@ -46,7 +46,12 @@ export const CompanyDetailsEdit = ({
       </div>
       <div className={s.field}>
         <span className={s.key}>Company type:</span>
-        <Select value={companyType.value} onChange={companyType.onChange} options={ORG_TYPES} />
+        <Select
+          value={companyType.value}
+          onChange={companyType.onChange}
+          options={ORG_TYPES}
+          placeholder="Select company type"
+        />
       </div>
     </div>
   );

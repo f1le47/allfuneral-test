@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { getAuth } from "./authApi";
 import { local } from "../../common/storages/localStorage";
 
@@ -12,13 +12,15 @@ class AuthStore {
 
   getAuth = async (username: string) => {
     try {
-      this.isLoading = true;
+      runInAction(() => this.isLoading = true);
       const res = await getAuth(username);
-      local.token = res.headers.authorization;
-      this.isAuth = true;
-      this.isLoading = false;
+      runInAction(() => {
+        local.token = res.headers.authorization;
+        this.isAuth = true;
+        this.isLoading = false;
+      });
     } catch(e) {
-      this.isLoading = false;
+      runInAction(() => this.isLoading = false);
     }
   }
 }

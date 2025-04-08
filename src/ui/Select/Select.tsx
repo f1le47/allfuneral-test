@@ -9,9 +9,10 @@ interface Props<T> {
   value: T;
   onChange: (value: T) => void;
   options: string[];
+  placeholder?: string;
 }
 
-export function Select<T>({ value, onChange, options }: Props<T>) {
+export function Select<T>({ value, onChange, options, placeholder }: Props<T>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [innerOptions, setInnerOptions] = useState<IOption[]>(
     options.map((option, index) => ({
@@ -52,7 +53,9 @@ export function Select<T>({ value, onChange, options }: Props<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerOptions]);
 
-  const displayedValue = (Array.isArray(value) ? value.join(", ") : value) as string;
+  const displayedValue = value
+    ? ((Array.isArray(value) ? value.join(", ") : value) as string)
+    : placeholder ?? "";
 
   return (
     <>
@@ -60,7 +63,11 @@ export function Select<T>({ value, onChange, options }: Props<T>) {
         <div
           className={`${s.trigger} ${isOpen ? s.focus : ""}`}
           onClick={() => setIsOpen((prev) => !prev)}>
-          <span className={s.value}>{displayedValue}</span>
+          {displayedValue ? (
+            <span className={s.value}>{displayedValue}</span>
+          ) : (
+            <span className={`${s.value} ${s.placeholder}`}>{placeholder ?? ""}</span>
+          )}
           {!isOpen ? <Open /> : <Close />}
         </div>
         {isOpen && (

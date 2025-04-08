@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $black_5;
+  background-color: rgba($black, 0.2);
 
   .dialogbox {
     padding: 24px;
@@ -20,6 +20,7 @@
     border-radius: 8px;
     transform: translate(-50%, -50%);
     text-align: center;
+    box-shadow: 0 3px 8px rgba($black, 0.12);
 
     .title {
       font-family: "Poppins";

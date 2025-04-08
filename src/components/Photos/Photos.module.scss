@@ -1,0 +1,34 @@
+.photos {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+
+  .photo {
+    position: relative;
+
+    &:hover {
+      .button {
+        display: block;
+      }
+    }
+
+    .img {
+      width: 144px;
+      height: 108px;
+      border-radius: 10px;
+    }
+
+    .button {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      .btn {
+        padding: 6px;
+      }
+    }
+  }
+}

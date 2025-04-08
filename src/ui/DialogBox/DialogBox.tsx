@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { MouseEvent, ReactElement } from "react";
 import s from "./DialogBox.module.scss";
 import { Button } from "../Button/Button";
 import { ButtonVariants } from "../Button/types";
@@ -14,8 +14,12 @@ interface Props {
 }
 
 export const DialogBox = ({ applyText, cancelText, children, onApply, onCancel, title }: Props) => {
+  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onCancel();
+  };
+
   return createPortal(
-    <div className={s.overlay}>
+    <div className={s.overlay} onClick={handleOverlayClick}>
       <div className={s.dialogbox}>
         <p className={s.title}>{title}</p>
         <div className={s.children}>{children}</div>

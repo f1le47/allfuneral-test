@@ -28,7 +28,7 @@
     line-height: 24px;
     color: rgba($black, 0.8);
 
-    &::placeholder {
+    &.placeholder {
       color: rgba($black, 0.4);
     }
   }

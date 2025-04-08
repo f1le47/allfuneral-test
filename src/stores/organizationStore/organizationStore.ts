@@ -1,6 +1,6 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { Organization, OrganizationPatch } from "./types";
-import { getOrganization, saveOrganization } from "./organizationApi";
+import { addPhoto, deletePhoto, getOrganization, removeOrganization, saveOrganization } from "./organizationApi";
 
 class OrganizationStore {
   organization: Organization | null = null;
@@ -12,23 +12,75 @@ class OrganizationStore {
 
   getOrganization = async (id: string) => {
     try {
-      this.isLoading = true;
+      runInAction(() => this.isLoading = true);
       const res: Organization = await getOrganization(id);
-      this.organization = res;
-      this.isLoading = false;
+      runInAction(() => {
+        this.organization = res;
+        this.isLoading = false;
+      });
     } catch(e) {
-      this.isLoading = false;
+      runInAction(() => this.isLoading = false);
     }
   }
 
   saveOrganization = async (id: string, organization: OrganizationPatch) => {
     try {
-      this.isLoading = true;
+      runInAction(() => this.isLoading = true);
       const res: Organization = await saveOrganization(id, organization);
-      this.organization = res;
-      this.isLoading = false;
+      runInAction(() => {
+        this.organization = res;
+        this.isLoading = false;
+      })
     } catch(e) {
-      this.isLoading = false;
+      runInAction(() => this.isLoading = false);
+    }
+  }
+
+  removeOrganization = async (id: string) => {
+    try {
+      runInAction(() => this.isLoading = true);
+      await removeOrganization(id);
+      runInAction(() => {
+        this.organization = null;
+        this.isLoading = false;
+      });
+    } catch(e) {
+      runInAction(() => {
+        this.isLoading = false;
+      })
+
+    }
+  }
+
+  deletePhoto = async (id: string, photoName: string) => {
+    try {
+      runInAction(() => this.isLoading = true);
+      await deletePhoto(id, photoName);
+      runInAction(() => {
+        if (this.organization) {
+          this.organization = { ...this.organization, photos: this.organization?.photos.filter(photo => photo.name !== photoName) };
+        }
+        this.isLoading = false;
+      })
+    } catch(e) {
+      runInAction(() => this.isLoading = false);
+    }
+  }
+
+  addPnoto = async (id: string, photoFile: File) => {
+    try {
+      runInAction(() => this.isLoading = true);
+      const photo = await addPhoto(id, photoFile);
+      runInAction(() => {
+        if (this.organization) {
+          this.organization = { ...this.organization, photos: [...this.organization.photos, photo] };
+        }
+        this.isLoading = false;
+      });
+    } catch(e) {
+      runInAction(() => {
+        this.isLoading = false;
+      })
     }
   }
 }
