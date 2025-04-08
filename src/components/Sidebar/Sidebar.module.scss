@@ -1,0 +1,54 @@
+.wrapper {
+  position: relative;
+
+  .sidebar {
+    position: fixed;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    background-color: $white;
+    box-sizing: border-box;
+  
+    .header {
+      display: flex;
+      flex-direction: column;
+  
+      .title {
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 24px;
+        color: rgba($black, 0.8);
+      }
+  
+      .role {
+        font-family: "Poppins";
+        font-size: 11px;
+        line-height: 16px;
+        color: rgba($black, 0.8);
+      }
+    }
+  
+    .divider {
+      width: 100%;
+      height: 1px;
+      background-color: rgba($black, 0.1);
+    }
+  
+    .tabs {
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
+    }
+  
+    .footer {
+      margin-top: auto;
+      font-family: "Poppins";
+      font-size: 11px;
+      line-height: 16px;
+      color: rgba($black, 0.3);
+    }
+  }
+}

@@ -14,6 +14,7 @@ import { BlurLoader } from "../../ui/BlurLoader/BlurLoader";
 import { contactStore } from "../../stores/contactStore/contactStore";
 import { Contacts } from "../../components/Contacts/Contacts";
 import { Photos } from "../../components/Photos/Photos";
+import { Sidebar } from "../../components/Sidebar/Sidebar";
 
 export const Organization = observer(() => {
   const {
@@ -64,6 +65,7 @@ export const Organization = observer(() => {
     <>
       <BlurLoader isLoading={isOrganizationLoading || isContactLoading}>
         <main className={s.page}>
+          <Sidebar />
           <div className={s.container}>
             <div className={s.pageHeader}>
               <IconButton className={s.back} icon={<Back />} />
