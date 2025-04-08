@@ -1,0 +1,51 @@
+.page {
+  background-color: $bg;
+
+  .container {
+    margin: 0 auto;
+    padding: 40px 0;
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+  
+    .pageHeader {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 16px;
+
+      .back {
+        position: absolute;
+        transform: translateX(-100%);
+        left: -32px;
+      }
+  
+      .title {
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 40px;
+      }
+  
+      .buttons {
+        display: flex;
+        align-items: center;
+  
+        .icon {
+          padding: 6px;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  
+    .cards {
+      display: flex;
+      flex-direction: column;
+      row-gap: 16px;
+    }
+  }
+}

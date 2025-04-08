@@ -1,0 +1,69 @@
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 12px;
+  font-family: "Poppins";
+  font-weight: 600;
+  border: 1px solid;
+  border-radius: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  & svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.Filled {
+    color: rgba($white, 0.95);
+    background-color: $primary;
+    border-color: $primary;
+    & svg {
+      color: $white;
+    }
+
+    &:hover {
+      background-color: $primary_20;
+      border-color: $primary_20;
+    }
+    &:active {
+      background-color: $primary_30;
+      border-color: $primary_30;
+    }
+  }
+  &.Outline {
+    color: $primary;
+    background-color: #fff;
+    border-color: rgba($black, 0.2);
+    & svg {
+      color: $primary;
+    }
+
+    &:hover {
+      color: $secondary;
+      border-color: rgba($black, 0.4);
+      & svg {
+        color: $secondary;
+      }
+    }
+    &:active {
+      color: $secondary;
+      border-color: $secondary;
+      & svg {
+        color: $secondary;
+      }
+    }
+  }
+
+  &.SizeDefault {
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+  &.Flattened {
+    padding: 4px 8px;
+    font-size: 11px;
+    line-height: 20px;
+  }
+}

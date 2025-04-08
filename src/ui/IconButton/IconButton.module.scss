@@ -1,0 +1,14 @@
+.icon {
+  padding: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($primary, 0.05);
+  }
+  &:active {
+    background-color: rgba($assist, 0.2);
+  }
+}

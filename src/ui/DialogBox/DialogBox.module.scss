@@ -1,0 +1,43 @@
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $black_5;
+
+  .dialogbox {
+    padding: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 24px;
+    background-color: $white;
+    border-radius: 8px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    .title {
+      font-family: "Poppins";
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      color: rgba($black, 0.8);
+    }
+
+    .children {
+      width: 100%;
+    }
+
+    .buttons {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      column-gap: 16px;
+    }
+  }
+}

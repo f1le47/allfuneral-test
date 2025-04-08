@@ -1,0 +1,30 @@
+.cardWrapper {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  background-color: $white;
+  border-radius: 16px;
+  box-shadow: 0 3px 8px rgba($black, 0.12);
+  
+  .title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__text {
+      font-family: "Poppins";
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      color: rgba($black, 0.8);
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      column-gap: 12px;
+    }
+  }
+}
